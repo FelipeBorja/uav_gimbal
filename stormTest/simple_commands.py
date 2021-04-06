@@ -30,6 +30,6 @@ ser.close()             # close port
 
 crc = crcmod.predefined.Crc('crc-16-mcrf4xx')
 
-crc.update(b'\x06\x00x\x98\x00\x80\x00\x00\xc7\x12')
+crc.update(b'\x01\x96\x00')
 print(hex(crc.crcValue))
-print('CC 02')
+print('62 2e')

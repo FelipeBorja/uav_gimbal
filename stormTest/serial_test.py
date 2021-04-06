@@ -15,16 +15,6 @@ import sys
 
 ser = serial.Serial(port = '/dev/ttyACM0', baudrate=9600, timeout = 1)  # open serial port
 
-# start with checking if board is connected
-ser.write(b't')
-packet_in = ser.read_until(b'o')
-if packet_in != b'o':
-    print('Board not connected. Error:')
-    print(packet_in)
-    sys.exit()
-else:
-    print('Board connected')
-
 # Send version message
 interface = storm(ser)
 interface.send()
@@ -35,7 +25,7 @@ end = False
 while not end:
     # get roll pitch yaw from user
     interface.askRPY()
-    interface.setRPY()
+    interface.rpyMsg()
     interface.send()
     interface.receive()
     end = True
