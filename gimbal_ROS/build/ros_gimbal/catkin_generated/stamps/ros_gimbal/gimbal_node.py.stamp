@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+# Control storm32 gimbal based on incoming ROS messages
+# Alex Broz
+# VT USL
+
+import serial
+from storm import *
+import rospy
+from ros_gimbal.msg import gimbal
+
+# Create gimbal interface
+ser = serial.Serial(port = '/dev/ttyACM0', baudrate=9600, timeout = 1)  # open serial port
+interface = storm(ser)
+
+while not end:
+    # get roll pitch yaw from user
+    interface.askRPY()
+    interface.rpyMsg()
+    interface.send()
+    interface.receive()
+    end = True
+    if(input('Continue? (y/n) ') == 'y'):
+        end = False
+
+ser.close()             # close port
+
+def callback(data):
+    interface.setRPY(data.roll, data.pitch)
+    interface.rpyMsg()
+    interface.send()
+    interface.receive()
+
+
+    
+
+def listener():
+    rospy.init_node('gimbal_node', anonymous=True)
+    rospy.Subscriber('gimbal', gimbal, callback)
+
+    # spin() simply keeps python from exiting until this node is stopped
+    rospy.spin()
+
+if __name__ == '__main__':
+    listener()

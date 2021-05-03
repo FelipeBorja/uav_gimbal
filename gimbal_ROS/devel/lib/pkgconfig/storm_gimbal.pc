@@ -1,0 +1,8 @@
+prefix=/home/uslpi0/uav_gimbal/gimbal_ROS/devel
+
+Name: storm_gimbal
+Description: Description of storm_gimbal
+Version: 0.0.0
+Cflags: -I/home/uslpi0/uav_gimbal/gimbal_ROS/devel/include
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy message_runtime

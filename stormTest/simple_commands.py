@@ -13,7 +13,6 @@
 import serial
 import crcmod.predefined
 
-
 ser = serial.Serial('/dev/ttyACM0')  # open serial port
 
 command = 't'   # start with checking if board is connected
